@@ -1,6 +1,6 @@
 {
   "name": "spinwheel",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "spinwheel game built with Node.js and Pixi.js",
   "main": "server/server.js",
   "scripts": {

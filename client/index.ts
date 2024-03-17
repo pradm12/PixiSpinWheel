@@ -46,7 +46,7 @@ export class PixiWheel {
         this.app = new Application({ background: '#000000', width: 1280, height: 720 });
         globalThis.__PIXI_APP__ = this.app;
         document.body.appendChild(this.app.view);
-       
+
         const size = { width: this.app.screen.width, height: this.app.screen.height };
 
         const background = this.createSprite('background');
@@ -74,7 +74,7 @@ export class PixiWheel {
         this.app.ticker.add(this.update.bind(this));
     }
 
-    
+
 
     async addSpinWheel() {
         new Promise((resolve: Function) => {
@@ -87,7 +87,7 @@ export class PixiWheel {
             this.wheel_container = new Container();
             this.addChild(this.wheel_container);
             this.wheel_container.x = size.width / 2;
-            this.wheel_container.y = size.height / 2 -90;
+            this.wheel_container.y = size.height / 2 - 90;
 
             const wheel = this.createSprite('wheel-center');
             wheel.tint = 0x00FF00;
@@ -191,6 +191,9 @@ export class PixiWheel {
                     self.coinShower.animateCoins();
                     self.gameSetup.addWiningTextAmount(credits[stopAtIndex]);
                     self.gameSetup.updateWinAmountText(credits[stopAtIndex]);
+                    setTimeout(() => {
+                        self.soundManager.stopSound(0);
+                    }, 4000);
                     self.totalWinAmount += parseInt(credits[stopAtIndex]);
                 }
             })
@@ -224,8 +227,8 @@ export class PixiWheel {
             const size = { width: this.app.screen.width, height: this.app.screen.height };
             const dropdownContainer = new Container();
 
-            dropdownContainer.x = size.width/1.2;
-            dropdownContainer.y = size.height/10;
+            dropdownContainer.x = size.width / 1.2;
+            dropdownContainer.y = size.height / 10;
             this.addChild(dropdownContainer);
 
             // Create the dropdown button
@@ -277,18 +280,18 @@ export class PixiWheel {
                 align: 'center'
             });
 
-            const bonusText = new Text('Bonus Spin',textStyle);
+            const bonusText = new Text('Bonus Spin', textStyle);
             bonusText.anchor.set(0.5);
             bonusText.x = size.width / 2;
             bonusText.y = size.height / 10;
             this.addChild(bonusText);
 
-            const spinText = new Text('  PRESS             TO SPIN', { fontFamily: 'Arial', fontSize: 30, fill: ['#ffffff', '#00ff99'],fontWeight: 'bold' });
+            const spinText = new Text('  PRESS             TO SPIN', { fontFamily: 'Arial', fontSize: 30, fill: ['#ffffff', '#00ff99'], fontWeight: 'bold' });
             spinText.anchor.set(0.5);
             spinText.x = size.width / 2;
             spinText.y = size.height / 1.6;
             this.addChild(spinText);
-                        
+
             // Hide dropdown items initially
             dropdownItemsContainer.visible = false;
 
@@ -296,16 +299,15 @@ export class PixiWheel {
             button.interactive = true;
             button.on('pointerdown', () => {
                 dropdownItemsContainer.visible = !dropdownItemsContainer.visible;
-              
+
             });
 
             resolve();
         });
     }
-
+   
     onCoinShowerFinish() {
         this.gameSetup.show();
-        this.soundManager.stopSound(0);
         this.gameSetup.removeWinningText();
         this.isSpinPressed = false;
     }

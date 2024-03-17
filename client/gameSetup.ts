@@ -74,7 +74,6 @@ export default class GameSetup {
         titleText.x = size.width / 2;
         titleText.y = size.height / 10;
         this.container.addChild(titleText)
-     
     }
 
     updateWinAmountText(winAmount) {
@@ -83,7 +82,7 @@ export default class GameSetup {
         let self = this;
         let winText = this.winText;
         const tween = new TWEEN.Tween({ number: startNumber })
-            .to({ number: targetNumber }, 5000)
+            .to({ number: targetNumber }, 4500)
             .easing(TWEEN.Easing.Cubic.InOut)
             .onUpdate(function onUpdate(obj) {
                 winText.text = Math.round(this.number).toString();
